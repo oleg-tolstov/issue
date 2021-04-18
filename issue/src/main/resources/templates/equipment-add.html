@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Выдача оборудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5 mb-5">
+    <h1>Добавление оборудования</h1>
+    <form action="/equipment/add" method="post">
+        <input type="text" name="name" placeholder="Введите наименование" class="form-control"><br>
+        <input type="text" name="tel" placeholder="Введите серийный номер" class="form-control"><br>
+        --Поле со списком
+        <textarea name="note" placeholder="Примечание" class="form-control"></textarea><br>
+        <button type="submit" class="btn btn-success">Добавить</button>
+    </form>
+</div>
+</body>
+</html>

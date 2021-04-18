@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Оборудование</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <h1>Выдачи оборудования</h1>
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${Issues}">
+            <td th:text="${el.equipment}"></td>
+            <td><a th:href="'/issue/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="'/issue/add'" class="btn btn-warning">Добавить</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Выдача оборудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <h1>Сотрудники</h1>
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Телефон</th>
+            <th>Электронная почта</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${Employees}">
+            <td th:text="${el.name}"></td>
+            <td th:text="${el.tel}"></td>
+            <td th:text="${el.mail}"></td>
+            <td><a th:href="'/employee/' + ${el.id} + '/edit'" class="btn btn-warning">Изменить </a>
+                <a th:href="'/employee/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="'/employee/add'" class="btn btn-warning">Добавить</a>
+
+</div>
+</body>
+</html>

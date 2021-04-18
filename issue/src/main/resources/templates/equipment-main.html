@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Выдача оборудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <h1>Оборудование</h1>
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Серийный номер</th>
+            <th>Примечание</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${Equipments}">
+            <td th:text="${el.name}"></td>
+            <td th:text="${el.serial_number}"></td>
+            <td th:text="${el.note}"></td>
+            <td><a th:href="'/equipment/' + ${el.id} + '/edit'" class="btn btn-warning">Изменить </a>
+                <a th:href="'/equipment/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="'/equipment/add'" class="btn btn-warning">Добавить</a>
+
+</div>
+</body>
+</html>

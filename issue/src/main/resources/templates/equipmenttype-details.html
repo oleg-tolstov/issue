@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Тип борудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <div th:each="el : ${equipmentType}" class="alert alert-info mt-2">
+        <h3 th:text="${el.name}"/>
+        <a th:href="'/equipmenttype/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать </a><br><br>
+        <form th:action="'/equipmenttype/' + ${el.id}+'/remove'" method="post"></form>
+        <button class="btn btn-warning" type="submit">Удалить </button>
+    </div>
+</div>
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
