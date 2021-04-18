@@ -11,8 +11,11 @@
     <h1>Добавление оборудования</h1>
     <form action="/equipment/add" method="post">
         <input type="text" name="name" placeholder="Введите наименование" class="form-control"><br>
-        <input type="text" name="tel" placeholder="Введите серийный номер" class="form-control"><br>
-        --Поле со списком
+        <input type="text" name="serial_number" placeholder="Введите серийный номер" class="form-control"><br>
+        <select class="form-control" name="equipmentTypeId" id="equipmentTypeId">
+            <option disabled selected value="1">Выберите тип оборудования</option>
+            <option th:each="equipment : ${typeIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
+        </select>
         <textarea name="note" placeholder="Примечание" class="form-control"></textarea><br>
         <button type="submit" class="btn btn-success">Добавить</button>
     </form>
