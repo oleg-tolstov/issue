@@ -16,12 +16,11 @@ import java.util.Optional;
 @Controller
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeRepo EmployeeRepo;
+    private final EmployeeRepo employeeRepo;
 
     @GetMapping("/employee")
     public String employeeMain(Model model) {
-        Iterable<Employee> Employees = EmployeeRepo.findAll();
+        Iterable<Employee> Employees = employeeRepo.findAll();
         model.addAttribute("Employees", Employees);
         return "employee-main";
     }
@@ -33,16 +32,16 @@ public class EmployeeController {
     @PostMapping("/employee/add")
     public String employeePostAdd(@RequestParam String name,@RequestParam Long tel, @RequestParam String mail, Model model){
         Employee employee = new Employee(name);
-        EmployeeRepo.save(employee);
+        employeeRepo.save(employee);
         return "redirect:/employee";
     }
 
     @GetMapping("/employee/{id}")
     public String employeeDetails(@PathVariable(value = "id") long id, Model model) {
-        if (!EmployeeRepo.existsById(id)){
+        if (!employeeRepo.existsById(id)){
             return "redirect:/employee";
         }
-        Optional <Employee> employee = EmployeeRepo.findById(id);
+        Optional <Employee> employee = employeeRepo.findById(id);
         ArrayList<Employee> res = new ArrayList<>();
         employee.ifPresent(res::add);
         model.addAttribute("employee", res);
@@ -51,10 +50,10 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}/edit")
     public String employeeEdit(@PathVariable(value = "id") long id, Model model) {
-        if (!EmployeeRepo.existsById(id)){
+        if (!employeeRepo.existsById(id)){
             return "redirect:/employee";
         }
-        Optional <Employee> employee = EmployeeRepo.findById(id);
+        Optional <Employee> employee = employeeRepo.findById(id);
         ArrayList <Employee> res = new ArrayList<>();
         employee.ifPresent(res::add);
         model.addAttribute("employee", res);
@@ -63,19 +62,22 @@ public class EmployeeController {
 
     @PostMapping("/employee/{id}/edit")
     public String employeePostUpdate(@PathVariable(value = "id") long id,@RequestParam String name, @RequestParam Long tel, @RequestParam String mail, Model model) throws Exception {
-        Employee employee = EmployeeRepo.findById(id).orElseThrow(() -> new Exception());
+        Employee employee = employeeRepo.findById(id).orElseThrow(() -> new Exception());
         employee.setName(name);
         employee.setTel(tel);
         employee.setMail(mail);
-        EmployeeRepo.save(employee);
+        employeeRepo.save(employee);
         return "redirect:/employee";
     }
 
     @PostMapping("/employee/{id}/remove")
     public String employeePostDelete(@PathVariable(value = "id") long id, Model model) throws Exception {
-        Employee employee = EmployeeRepo.findById(id).orElseThrow(() -> new Exception());
-        EmployeeRepo.delete(employee);
+        Employee employee = employeeRepo.findById(id).orElseThrow(() -> new Exception());
+        employeeRepo.delete(employee);
         return "redirect:/employee";
     }
 
+    public EmployeeController(EmployeeRepo employeeRepo) {
+        this.employeeRepo = employeeRepo;
+    }
 }
