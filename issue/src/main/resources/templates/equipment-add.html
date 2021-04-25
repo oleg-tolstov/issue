@@ -15,7 +15,11 @@
         <select class="form-control" name="equipmentTypeId" id="equipmentTypeId">
             <option disabled selected value="1">Выберите тип оборудования</option>
             <option th:each="equipment : ${typeIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
-        </select>
+        </select><br>
+        <select class="form-control" name="manufacturerId" id="manufacturerId">
+            <option disabled selected value="1">Выберите производителя</option>
+            <option th:each="equipment : ${manIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
+        </select><br>
         <textarea name="note" placeholder="Примечание" class="form-control"></textarea><br>
         <button type="submit" class="btn btn-success">Добавить</button>
     </form>

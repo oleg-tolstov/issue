@@ -75,11 +75,12 @@ public class Equipment {
         this.manufacturer = manufacturer;
     }
 
-    public Equipment(String name, String serial_number, String note, EquipmetType equipmetType) {
+    public Equipment(String name, String serial_number, String note, EquipmetType equipmetType, Manufacturer manufacturer) {
         this.name = name;
         this.serial_number = serial_number;
         Note = note;
         this.equipmetType = equipmetType;
+        this.manufacturer = manufacturer;
     }
     public Equipment() {
     }

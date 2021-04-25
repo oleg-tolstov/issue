@@ -10,7 +10,14 @@
 <div class="container mt-5 mb-5">
     <h1>Добавление выдачи</h1>
     <form action="/issue/add" method="post">
-        <input type="text" name="id" placeholder="Введите " class="form-control"><br>
+        <select class="form-control" name="employeeId" id="employeeId">
+        <option disabled selected value="1">Выберите сотрудника</option>
+        <option th:each="issue : ${empIds}" th:value="${issue.getId()}" th:text="${issue.getName()}"></option>
+    </select><br>
+        <select class="form-control" name="equipmentId" id="equipmentId">
+            <option disabled selected value="1">Выберите оборудование</option>
+            <option th:each="issue : ${equIds}" th:value="${issue.getId()}" th:text="${issue.getName()}"></option>
+        </select><br>
         <button type="submit" class="btn btn-success">Добавить</button>
     </form>
 </div>

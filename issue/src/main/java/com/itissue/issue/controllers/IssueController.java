@@ -1,9 +1,9 @@
 package com.itissue.issue.controllers;
 
 import com.itissue.issue.models.Issue;
+import com.itissue.issue.repo.EmployeeRepo;
+import com.itissue.issue.repo.EquipmentRepo;
 import com.itissue.issue.repo.IssueRepo;
-import com.itissue.issue.repo.IssueRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,38 +12,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class IssueController {
 
-    @Autowired
-    private IssueRepo IssueRepo;
+    private final IssueRepo issueRepo;
+    private final EmployeeRepo employeeRepo;
+    private final EquipmentRepo equipmentRepo;
 
     @GetMapping("/issue")
-    public String equipmentMain(Model model) {
-        Iterable<Issue> Issues = IssueRepo.findAll();
+    public String issueMain(Model model) {
+        Iterable<Issue> Issues = issueRepo.findAll();
         model.addAttribute("Issues", Issues);
         return "issue-main";
     }
+
+ /*   @GetMapping("/GetIssue")
+    public List<Issue> GetIssue {
+        return issueRepo.findAll();
+    }*/
+
     @GetMapping("/issue/add")
     public String issueAdd(Model model) {
+        model.addAttribute("empIds", employeeRepo.findAll());
+        model.addAttribute("equIds", equipmentRepo.findAll());
         return "issue-add";
     }
 
-/*    @PostMapping("/equipment/add")
-    public String issuePostAdd(@RequestParam Long id_emp , Model model){
-        Issue issue = new Issue(id_emp);
-        IssueRepo.save(issue);
+   @PostMapping("/issue/add")
+    public String issuePostAdd(@RequestParam Long employeeId,
+                               @RequestParam Long equipmentId,
+                               Model model){
+        Issue issue = new Issue(employeeRepo.findById(employeeId).get(),equipmentRepo.findById(equipmentId).get());
+        issueRepo.save(issue);
         return "redirect:/issue";
-    }*/
+    }
 
     @GetMapping("/issue/{id}")
     public String issueDetails(@PathVariable(value = "id") long id, Model model) {
-        if (!IssueRepo.existsById(id)){
+        if (!issueRepo.existsById(id)){
             return "redirect:/issue";
         }
-        Optional <Issue> employee = IssueRepo.findById(id);
+        Optional <Issue> employee = issueRepo.findById(id);
         ArrayList<Issue> res = new ArrayList<>();
         employee.ifPresent(res::add);
         model.addAttribute("issue", res);
@@ -52,10 +64,16 @@ public class IssueController {
 
 
     @PostMapping("/issue/{id}/remove")
-    public String employeePostDelete(@PathVariable(value = "id") long id, Model model) throws Exception {
-        Issue equipment = IssueRepo.findById(id).orElseThrow(() -> new Exception());
-        IssueRepo.delete(equipment);
+    public String issuePostDelete(@PathVariable(value = "id") long id, Model model) throws Exception {
+        Issue equipment = issueRepo.findById(id).orElseThrow(() -> new Exception());
+        issueRepo.delete(equipment);
         return "redirect:/issue";
+    }
+
+    public IssueController(IssueRepo issueRepo, EmployeeRepo employeeRepo, EquipmentRepo equipmentRepo) {
+        this.issueRepo = issueRepo;
+        this.employeeRepo = employeeRepo;
+        this.equipmentRepo = equipmentRepo;
     }
 
 }

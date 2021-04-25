@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Выдача оборудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div th:if="${param.error}">
+    Неправильные имя пользователя/пароль.
+</div>
+<div th:if="${param.logout}">
+    Вы вышли из системы.
+</div>
+<form th:action="@{/login}" method="post">
+
+    <div class="col-sm-6">
+        <label>Имя пользователя</label>
+        <input type="text" name="username"/>
+    </div>
+    <div class="col-sm-6">
+        <label>Пароль</label>
+        <input type="password" name="password"/>
+    </div>
+    <div ><input type="submit" value="Вход"/></div>
+
+<!--    <div ><label> User Name : <input type="text" name="username"/> </label></div>
+    <div ><label> Password: <input type="password" name="password"/> </label></div>
+    <div ><input type="submit" value="Вход"/></div>-->
+</form>
+</body>
+</html>

@@ -1,6 +1,9 @@
 package com.itissue.issue.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -10,7 +13,9 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date date;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime date = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_emp",
@@ -31,11 +36,11 @@ public class Issue {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -55,7 +60,9 @@ public class Issue {
         this.equipment = equipment;
     }
 
-    public Issue(Long employee) {
+    public Issue(Employee employee, Equipment equipment) {
+        this.employee = employee;
+        this.equipment = equipment;
     }
 
     public Issue() {

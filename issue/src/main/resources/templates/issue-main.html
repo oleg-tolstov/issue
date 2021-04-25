@@ -12,14 +12,19 @@
     <table class="table" style="width: 100%; table-layout: fixed;">
         <thead>
         <tr>
-            <th>Наименование</th>
+            <th>Сотрудник</th>
+            <th>Оборудование</th>
+            <th>Дата выдачи</th>
             <th>Действие</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="el : ${Issues}">
-            <td th:text="${el.equipment}"></td>
-            <td><a th:href="'/issue/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить </a></td>
+            <td th:text="${el.getEmployee().getName()}"></td>
+            <td th:text="${el.getEquipment().getName()}"></td>
+            <td th:text="${el.getDate()}"></td>
+            <td><a th:href="'/issue/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить </a>
+                <a th:href="'/issue/' + ${el.id} + '/remove'" class="btn btn-warning">Накладная </a></td>
         </tr>
         </tbody>
     </table>

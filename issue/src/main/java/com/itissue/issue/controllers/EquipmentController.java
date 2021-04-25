@@ -1,9 +1,9 @@
 package com.itissue.issue.controllers;
 
 import com.itissue.issue.models.Equipment;
-import com.itissue.issue.models.EquipmetType;
 import com.itissue.issue.repo.EquipmentRepo;
 import com.itissue.issue.repo.EquipmentTypeRepo;
+import com.itissue.issue.repo.ManufacturerRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +19,7 @@ public class EquipmentController {
 
 	private final EquipmentRepo equipmentRepo;
 	private final EquipmentTypeRepo equipmentTypeRepo;
+	private final ManufacturerRepo manufacturerRepo;
 
 	@GetMapping("/equipment")
 	public String equipmentMain(Model model) {
@@ -30,7 +31,7 @@ public class EquipmentController {
 	@GetMapping("/equipment/add")
 	public String equipmentAdd(Model model) {
 		model.addAttribute("typeIds", equipmentTypeRepo.findAll());
-
+		model.addAttribute("manIds", manufacturerRepo.findAll());
 		return "equipment-add";
 	}
 
@@ -39,8 +40,9 @@ public class EquipmentController {
                                    @RequestParam String serial_number,
                                    @RequestParam String note,
                                    @RequestParam Long equipmentTypeId,
+								   @RequestParam Long manufacturerId,
                                    Model model) {
-		Equipment equipment = new Equipment(name, serial_number, note, equipmentTypeRepo.findById(equipmentTypeId).get());
+		Equipment equipment = new Equipment(name, serial_number, note, equipmentTypeRepo.findById(equipmentTypeId).get(), manufacturerRepo.findById(manufacturerId).get() );
 		equipmentRepo.save(equipment);
 		return "redirect:/equipment";
 	}
@@ -70,11 +72,19 @@ public class EquipmentController {
 	}
 
 	@PostMapping("/equipment/{id}/edit")
-	public String equipmentPostUpdate(@PathVariable(value = "id") long id, @RequestParam String name, @RequestParam String serial_number, @RequestParam String note, Model model) throws Exception {
+	public String equipmentPostUpdate(@PathVariable(value = "id") long id,
+									  @RequestParam String name,
+									  @RequestParam String serial_number,
+									  @RequestParam String note,
+									  @RequestParam Long equipmentTypeId,
+									  @RequestParam Long manufacturerId,
+									  Model model) throws Exception {
 		Equipment equipment = equipmentRepo.findById(id).orElseThrow(Exception::new);
 		equipment.setName(name);
 		equipment.setSerial_number(serial_number);
 		equipment.setNote(note);
+		equipment.setEquipmetType(equipmentTypeRepo.findById(equipmentTypeId).get());
+		equipment.setManufacturer(manufacturerRepo.findById(manufacturerId).get());
 		equipmentRepo.save(equipment);
 		return "redirect:/equipment";
 	}
@@ -86,9 +96,10 @@ public class EquipmentController {
 		return "redirect:/employee";
 	}
 
-	public EquipmentController(EquipmentRepo EquipmentRepo, EquipmentTypeRepo equipmentTypeRepo) {
+	public EquipmentController(EquipmentRepo EquipmentRepo, EquipmentTypeRepo equipmentTypeRepo, ManufacturerRepo manufacturerRepo) {
 		this.equipmentRepo = EquipmentRepo;
 		this.equipmentTypeRepo = equipmentTypeRepo;
+		this.manufacturerRepo = manufacturerRepo;
 	}
 
 }

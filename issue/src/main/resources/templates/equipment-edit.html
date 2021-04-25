@@ -13,6 +13,14 @@
         <form method="post">
             <input type="text" th:value="${el.name}" name="name" placeholder="Введите наименование" class="form-control"><br>
             <input type="text" th:value="${el.serial_number}" name="serial_number" placeholder="Введите серийный номер" class="form-control"><br>
+            <select class="form-control" name="equipmentTypeId" id="equipmentTypeId">
+                <option disabled selected value="1">Выберите тип оборудования</option>
+                <option th:each="equipment : ${typeIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
+            </select><br>
+            <select class="form-control" name="manufacturerId" id="manufacturerId">
+                <option disabled selected value="1">Выберите производителя</option>
+                <option th:each="equipment : ${manIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
+            </select><br>
             <textarea name="note" placeholder="Примечание" class="form-control"></textarea><br>
             <button type="submit" class="btn btn-success">Обновить</button>
         </form>
