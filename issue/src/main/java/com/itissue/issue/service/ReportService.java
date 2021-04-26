@@ -24,7 +24,7 @@ public class ReportService {
 
 
     public String exportReport(String reportFormat) throws JRException, FileNotFoundException {
-        String path = "C:\\Users\\ridea\\Desktop\\Report";
+        String path = "E:\\Report";
         List<Issue> issues = (List<Issue>) issueRepo.findAll();
         File file= ResourceUtils.getFile("classpath:Issue.jrxml");
         JasperReport jasperReport= JasperCompileManager.compileReport(file.getAbsolutePath());

@@ -1,6 +1,7 @@
 package com.itissue.issue.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Equipment {
@@ -13,7 +14,12 @@ public class Equipment {
 
     private String serial_number;
 
-    private String Note;
+    private String note;
+
+    private LocalDateTime start_date;
+
+    private LocalDateTime exp_date;
+
 
     @ManyToOne
     @JoinColumn(name = "id_type",
@@ -52,11 +58,11 @@ public class Equipment {
     }
 
     public String getNote() {
-        return Note;
+        return note;
     }
 
     public void setNote(String note) {
-        Note = note;
+        this.note = note;
     }
 
     public EquipmetType getEquipmetType() {
@@ -75,10 +81,26 @@ public class Equipment {
         this.manufacturer = manufacturer;
     }
 
+    public LocalDateTime getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(LocalDateTime start_date) {
+        this.start_date = start_date;
+    }
+
+    public LocalDateTime getExp_date() {
+        return exp_date;
+    }
+
+    public void setExp_date(LocalDateTime exp_date) {
+        this.exp_date = exp_date;
+    }
+
     public Equipment(String name, String serial_number, String note, EquipmetType equipmetType, Manufacturer manufacturer) {
         this.name = name;
         this.serial_number = serial_number;
-        Note = note;
+        this.note = note;
         this.equipmetType = equipmetType;
         this.manufacturer = manufacturer;
     }
