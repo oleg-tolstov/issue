@@ -1,5 +1,7 @@
 package com.itissue.issue.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,9 +18,11 @@ public class Equipment {
 
     private String note;
 
-    private LocalDateTime start_date;
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime start_date; // Ввод в эксплуатацию
 
-    private LocalDateTime exp_date;
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime exp_date; // Срок пригодности
 
 
     @ManyToOne

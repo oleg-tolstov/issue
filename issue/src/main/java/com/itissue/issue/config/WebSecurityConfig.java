@@ -24,6 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/equipment")
+                .failureForwardUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout()
@@ -31,8 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable()
-                .logout()
-                .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin();

@@ -16,10 +16,8 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    @Autowired
-    private IssueRepo issueRepo;
-    @Autowired
-    private ReportService service;
+    private final IssueRepo issueRepo;
+    private final ReportService service;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -28,7 +26,7 @@ public class MainController {
     }
 
     @GetMapping("/getIs")
-    public List<Issue> getIssues(){
+    public List<Issue> getIssues() {
 
         return (List<Issue>) issueRepo.findAll();
 
@@ -38,6 +36,11 @@ public class MainController {
     public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
         return service.exportReport(format);
 
+    }
+
+    public MainController(IssueRepo issueRepo, ReportService service) {
+        this.issueRepo = issueRepo;
+        this.service = service;
     }
 
 }
