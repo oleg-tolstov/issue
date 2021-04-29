@@ -27,6 +27,8 @@ public class Issue {
     @JoinColumn(name = "equ_id")
      private Equipment equipment;
 
+    private LocalDateTime return_date;
+
 
     public Long getId() {
         return id;
@@ -58,6 +60,14 @@ public class Issue {
 
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
+    }
+
+    public LocalDateTime getReturn_date() {
+        return return_date;
+    }
+
+    public void setReturn_date(LocalDateTime return_date) {
+        this.return_date = return_date;
     }
 
     public Issue(Employee employee, Equipment equipment) {

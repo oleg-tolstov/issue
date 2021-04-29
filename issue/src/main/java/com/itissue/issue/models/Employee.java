@@ -1,9 +1,6 @@
 package com.itissue.issue.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Employee {
@@ -50,8 +47,10 @@ public class Employee {
         this.mail = mail;
     }
 
-    public Employee(String name) {
+    public Employee(String name, Long tel, String mail) {
         this.name= name;
+        this.tel=tel;
+        this.mail=mail;
     }
 
     public  Employee(){

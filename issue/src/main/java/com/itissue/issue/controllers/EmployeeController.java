@@ -31,7 +31,7 @@ public class EmployeeController {
 
     @PostMapping("/employee/add")
     public String employeePostAdd(@RequestParam String name,@RequestParam Long tel, @RequestParam String mail, Model model){
-        Employee employee = new Employee(name);
+        Employee employee = new Employee(name, tel, mail);
         employeeRepo.save(employee);
         return "redirect:/employee";
     }

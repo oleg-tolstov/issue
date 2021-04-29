@@ -29,11 +29,6 @@ public class IssueController {
         return "issue-main";
     }
 
- /*   @GetMapping("/GetIssue")
-    public List<Issue> GetIssue {
-        return issueRepo.findAll();
-    }*/
-
     @GetMapping("/issue/add")
     public String issueAdd(Model model) {
         model.addAttribute("empIds", employeeRepo.findAll());
@@ -55,9 +50,9 @@ public class IssueController {
         if (!issueRepo.existsById(id)){
             return "redirect:/issue";
         }
-        Optional <Issue> employee = issueRepo.findById(id);
+        Optional <Issue> issue = issueRepo.findById(id);
         ArrayList<Issue> res = new ArrayList<>();
-        employee.ifPresent(res::add);
+        issue.ifPresent(res::add);
         model.addAttribute("issue", res);
         return "issue-details";
     }

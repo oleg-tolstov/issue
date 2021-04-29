@@ -26,7 +26,7 @@ public class ReportService {
     public String exportReport(String reportFormat) throws JRException, FileNotFoundException {
         String path = "E:\\Report";
         List<Issue> issues = (List<Issue>) issueRepo.findAll();
-        File file= ResourceUtils.getFile("classpath:Issue.jrxml");
+        File file= ResourceUtils.getFile("classpath:Issue2.jrxml");
         JasperReport jasperReport= JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource=new JRBeanCollectionDataSource(issues);
         Map<String,Object> parameters=new HashMap<>();

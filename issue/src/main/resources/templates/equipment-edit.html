@@ -21,6 +21,8 @@
                 <option disabled selected value="1">Выберите производителя</option>
                 <option th:each="equipment : ${manIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
             </select><br>
+            <input type="date" th:value="${el.start_date}" name="start_date" placeholder="Введите дату ввода в эксплуатацию" class="form-control"><br>
+            <input type="date" th:value="${el.exp_date}" name="exp_date" placeholder="Введите срок эксплуатации" class="form-control"><br>
             <textarea name="note" placeholder="Примечание" class="form-control"></textarea><br>
             <button type="submit" class="btn btn-success">Обновить</button>
         </form>

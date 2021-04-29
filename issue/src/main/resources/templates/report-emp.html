@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Выдача оборудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <h1>Сотрудники</h1>
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Серийный номер </th>
+            <th>Дата выдачи</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${report}">
+            <td th:text="${el.name}"></td>
+            <td th:text="${el.tel}"></td>
+            <td th:text="${el.mail}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

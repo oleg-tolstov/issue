@@ -9,13 +9,15 @@
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5" >
     <h1>Оборудование</h1>
-    <table class="table" style="width: 100%;  table-layout: fixed;">
+    <table class="table" style="width: 100%;  table-layout: auto;">
         <thead>
         <tr>
             <th>Наименование</th>
             <th>Серийный номер</th>
             <th>Тип оборудования</th>
             <th>Производитель</th>
+            <th>Дата ввода</th>
+            <th>Срок эксплуатации</th>
             <th>Примечание</th>
             <th>Действие</th>
         </tr>
@@ -26,6 +28,8 @@
             <td th:text="${el.serial_number}"></td>
             <td th:text="${el.getEquipmetType().getName()}"></td>
             <td th:text="${el.getManufacturer().getName()}"></td>
+            <td th:text="${el.start_date}"></td>
+            <td th:text="${el.exp_date}"></td>
             <td th:text="${el.note}"></td>
             <td nowrap><a th:href="'/equipment/' + ${el.id} + '/edit'" class="btn btn-warning">Изменить </a>
                 <a th:href="'/equipment/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить </a>
