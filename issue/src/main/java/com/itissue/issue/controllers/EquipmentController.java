@@ -28,6 +28,7 @@ public class EquipmentController {
 		Iterable<Equipment> Equipments = equipmentRepo.findAll();
 		model.addAttribute("Equipments", Equipments);
 		model.addAttribute("comesToTheEndList", equipmentLifeService.getComesToTheEndFormatted());
+		model.addAttribute("overdueList", equipmentLifeService.getOverdueFormatted());
 		return "equipment-main";
 	}
 

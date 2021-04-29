@@ -1,4 +1,5 @@
-<div th:fragment="header" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<div th:fragment="header" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+     xmlns:th="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Tenth navbar example">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08"
@@ -47,10 +48,13 @@
         </div>
     </div>
     <div class="container-fluid" sec:authorize="isAuthenticated()">
-        <div class="alert alert-danger alert-dismissible" role="alert">
+        <div class="alert alert-danger alert-dismissible" role="alert" th:if="${not #lists.isEmpty(overdueList)}">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
             <strong>У следующего оборудования иссяк срок эксплуатации:</strong>
+            <ul th:each="equipment : ${overdueList}">
+                <li th:text="${equipment}"></li>
+            </ul>
         </div>
     </div>
 </div>

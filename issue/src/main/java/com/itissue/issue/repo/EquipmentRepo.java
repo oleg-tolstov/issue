@@ -15,4 +15,16 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
             nativeQuery = true
     )
     List<Equipment> comesToTheEnd();
+
+    @Query(
+            value = "SELECT * FROM equipment e WHERE e.exp_date < now()",
+            nativeQuery = true
+    )
+    List<Equipment> overdue();
+
+    @Query(
+            value = "SELECT * FROM equipment e, issue i WHERE i.equ_id != e.id AND e.exp_date < now()",
+            nativeQuery = true
+    )
+    List<Equipment> findAllNotIssued();
 }
