@@ -4,6 +4,7 @@ import com.itissue.issue.models.Equipment;
 import com.itissue.issue.repo.EquipmentRepo;
 import com.itissue.issue.repo.EquipmentTypeRepo;
 import com.itissue.issue.repo.ManufacturerRepo;
+import com.itissue.issue.service.EquipmentLifeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,14 @@ public class EquipmentController {
 	private final EquipmentRepo equipmentRepo;
 	private final EquipmentTypeRepo equipmentTypeRepo;
 	private final ManufacturerRepo manufacturerRepo;
+	private final EquipmentLifeService equipmentLifeService;
 
 	@GetMapping("/equipment")
 	public String equipmentMain(Model model) {
 		Iterable<Equipment> Equipments = equipmentRepo.findAll();
 		model.addAttribute("Equipments", Equipments);
+		model.addAttribute("comesToTheEndList", equipmentLifeService.getComesToTheEndFormatted());
+		model.addAttribute("overdueList", equipmentLifeService.getOverdueFormatted());
 		return "equipment-main";
 	}
 
@@ -96,10 +100,14 @@ public class EquipmentController {
 		return "redirect:/employee";
 	}
 
-	public EquipmentController(EquipmentRepo EquipmentRepo, EquipmentTypeRepo equipmentTypeRepo, ManufacturerRepo manufacturerRepo) {
+	public EquipmentController(EquipmentRepo EquipmentRepo,
+							   EquipmentTypeRepo equipmentTypeRepo,
+							   ManufacturerRepo manufacturerRepo,
+							   EquipmentLifeService equipmentLifeService) {
 		this.equipmentRepo = EquipmentRepo;
 		this.equipmentTypeRepo = equipmentTypeRepo;
 		this.manufacturerRepo = manufacturerRepo;
+		this.equipmentLifeService = equipmentLifeService;
 	}
 
 }

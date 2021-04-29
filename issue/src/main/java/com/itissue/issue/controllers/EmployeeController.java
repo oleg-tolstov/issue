@@ -2,7 +2,6 @@ package com.itissue.issue.controllers;
 
 import com.itissue.issue.models.Employee;
 import com.itissue.issue.repo.EmployeeRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +23,14 @@ public class EmployeeController {
         model.addAttribute("Employees", Employees);
         return "employee-main";
     }
+
     @GetMapping("/employee/add")
     public String employeedd(Model model) {
         return "employee-add";
     }
 
     @PostMapping("/employee/add")
-    public String employeePostAdd(@RequestParam String name,@RequestParam Long tel, @RequestParam String mail, Model model){
+    public String employeePostAdd(@RequestParam String name, @RequestParam Long tel, @RequestParam String mail) {
         Employee employee = new Employee(name, tel, mail);
         employeeRepo.save(employee);
         return "redirect:/employee";
@@ -38,10 +38,10 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}")
     public String employeeDetails(@PathVariable(value = "id") long id, Model model) {
-        if (!employeeRepo.existsById(id)){
+        if (!employeeRepo.existsById(id)) {
             return "redirect:/employee";
         }
-        Optional <Employee> employee = employeeRepo.findById(id);
+        Optional<Employee> employee = employeeRepo.findById(id);
         ArrayList<Employee> res = new ArrayList<>();
         employee.ifPresent(res::add);
         model.addAttribute("employee", res);
@@ -50,19 +50,19 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}/edit")
     public String employeeEdit(@PathVariable(value = "id") long id, Model model) {
-        if (!employeeRepo.existsById(id)){
+        if (!employeeRepo.existsById(id)) {
             return "redirect:/employee";
         }
-        Optional <Employee> employee = employeeRepo.findById(id);
-        ArrayList <Employee> res = new ArrayList<>();
+        Optional<Employee> employee = employeeRepo.findById(id);
+        ArrayList<Employee> res = new ArrayList<>();
         employee.ifPresent(res::add);
         model.addAttribute("employee", res);
         return "employee-edit";
     }
 
     @PostMapping("/employee/{id}/edit")
-    public String employeePostUpdate(@PathVariable(value = "id") long id,@RequestParam String name, @RequestParam Long tel, @RequestParam String mail, Model model) throws Exception {
-        Employee employee = employeeRepo.findById(id).orElseThrow(() -> new Exception());
+    public String employeePostUpdate(@PathVariable(value = "id") long id, @RequestParam String name, @RequestParam Long tel, @RequestParam String mail, Model model) throws Exception {
+        Employee employee = employeeRepo.findById(id).orElseThrow(Exception::new);
         employee.setName(name);
         employee.setTel(tel);
         employee.setMail(mail);
@@ -72,7 +72,7 @@ public class EmployeeController {
 
     @PostMapping("/employee/{id}/remove")
     public String employeePostDelete(@PathVariable(value = "id") long id, Model model) throws Exception {
-        Employee employee = employeeRepo.findById(id).orElseThrow(() -> new Exception());
+        Employee employee = employeeRepo.findById(id).orElseThrow(Exception::new);
         employeeRepo.delete(employee);
         return "redirect:/employee";
     }

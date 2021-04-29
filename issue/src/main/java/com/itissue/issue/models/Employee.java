@@ -48,9 +48,9 @@ public class Employee {
     }
 
     public Employee(String name, Long tel, String mail) {
-        this.name= name;
-        this.tel=tel;
-        this.mail=mail;
+        this.name = name;
+        this.tel = tel;
+        this.mail = mail;
     }
 
     public  Employee(){

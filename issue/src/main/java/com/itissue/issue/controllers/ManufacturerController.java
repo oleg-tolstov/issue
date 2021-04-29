@@ -15,8 +15,7 @@ import java.util.Optional;
 
 @Controller
 public class ManufacturerController {
-    @Autowired
-    private ManufacturerRepo ManufacturerRepo ;
+    private final ManufacturerRepo ManufacturerRepo;
 
     @GetMapping("/manufacturer")
     public String manufacturerMain(Model model) {
@@ -24,13 +23,14 @@ public class ManufacturerController {
         model.addAttribute("Manufacturers", Manufacturers);
         return "manufacturer-main";
     }
+
     @GetMapping("/manufacturer/add")
     public String manufacturerAdd(Model model) {
         return "manufacturer-add";
     }
 
     @PostMapping("/manufacturer/add")
-    public String manufacturerPostAdd(@RequestParam String name , Model model){
+    public String manufacturerPostAdd(@RequestParam String name, Model model) {
         Manufacturer manufacturer = new Manufacturer(name);
         ManufacturerRepo.save(manufacturer);
         return "redirect:/manufacturer";
@@ -38,10 +38,10 @@ public class ManufacturerController {
 
     @GetMapping("/manufacturer/{id}")
     public String manufacturerDetails(@PathVariable(value = "id") long id, Model model) {
-        if (!ManufacturerRepo.existsById(id)){
+        if (!ManufacturerRepo.existsById(id)) {
             return "redirect:/manufacturer";
         }
-        Optional <Manufacturer> manufacturer = ManufacturerRepo.findById(id);
+        Optional<Manufacturer> manufacturer = ManufacturerRepo.findById(id);
         ArrayList<Manufacturer> res = new ArrayList<>();
         manufacturer.ifPresent(res::add);
         model.addAttribute("equipmentType", res);
@@ -50,18 +50,18 @@ public class ManufacturerController {
 
     @GetMapping("/manufacturer/{id}/edit")
     public String manufacturerEdit(@PathVariable(value = "id") long id, Model model) {
-        if (!ManufacturerRepo.existsById(id)){
+        if (!ManufacturerRepo.existsById(id)) {
             return "redirect:/manufacturer";
         }
-        Optional <Manufacturer> manufacturer = ManufacturerRepo.findById(id);
-        ArrayList <Manufacturer> res = new ArrayList<>();
+        Optional<Manufacturer> manufacturer = ManufacturerRepo.findById(id);
+        ArrayList<Manufacturer> res = new ArrayList<>();
         manufacturer.ifPresent(res::add);
         model.addAttribute("manufacturer", res);
         return "manufacturer-edit";
     }
 
     @PostMapping("/manufacturer/{id}/edit")
-    public String manufacturerPostUpdate(@PathVariable(value = "id") long id,@RequestParam String name , Model model) throws Exception {
+    public String manufacturerPostUpdate(@PathVariable(value = "id") long id, @RequestParam String name, Model model) throws Exception {
         Manufacturer manufacturer = ManufacturerRepo.findById(id).orElseThrow(() -> new Exception());
         manufacturer.setName(name);
         ManufacturerRepo.save(manufacturer);
@@ -73,5 +73,9 @@ public class ManufacturerController {
         Manufacturer manufacturer = ManufacturerRepo.findById(id).orElseThrow(() -> new Exception());
         ManufacturerRepo.delete(manufacturer);
         return "redirect:/manufacturer";
+    }
+
+    public ManufacturerController(ManufacturerRepo ManufacturerRepo) {
+        this.ManufacturerRepo = ManufacturerRepo;
     }
 }
