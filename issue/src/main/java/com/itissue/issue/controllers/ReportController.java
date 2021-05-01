@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -34,30 +36,19 @@ public class ReportController {
         model.addAttribute("equIds", equipmentRepo.findAll());
         return "reports";
     }
+/*
+    @PostMapping("/reports/{idEmployee}/emp")
+    public String reportEmp(@PathVariable long idEmployee, Model model) {
+        List<Issue> issue = issueRepo.findIssueByEmployeeId(idEmployee);
+        model.addAttribute("issuesByEmployee", issue);
+        return "report-emp";
+    }*/
+    @PostMapping("/reports")
+    public String reportEmp(Employee employee, Model model) {
 
-    @GetMapping("/reports/{id}")
-    public String reportEmp(@PathVariable(value = "id") long empId, Model model) {
-        if (!employeeRepo.existsById(empId)){
-            return "redirect:/reports";
-        }
-        Optional <Issue> issue = issueRepo.findById(empId);
-        ArrayList<Issue> res = new ArrayList<>();
-        issue.ifPresent(res::add);
-        model.addAttribute("report", res);
         return "report-emp";
     }
 
-    @GetMapping("/reports/epm/{id}")
-    public String reportEmp1(@PathVariable(value = "id") long id, Model model) {
-        if (!employeeRepo.existsById(id)){
-            return "redirect:/reports";
-        }
-        Optional<Employee> employee = employeeRepo.findById(id);
-        ArrayList<Employee> res = new ArrayList<>();
-        employee.ifPresent(res::add);
-        model.addAttribute("employee", res);
-        return "issue-details";
-    }
 }
 
 

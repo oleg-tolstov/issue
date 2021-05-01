@@ -26,6 +26,17 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/issue">Выдача оборудования</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/reports">Отчеты</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            <li><a class="dropdown-item" href="/issue">Action</a></li>
+                            <li><a class="dropdown-item" href="/equipment">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
                         <a class="nav-link active" aria-current="page" href="/login">Авторизоваться</a>
                     </li>
@@ -41,7 +52,7 @@
         <div class="alert alert-warning alert-dismissible" role="alert" th:if="${not #lists.isEmpty(comesToTheEndList)}">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
-            <strong>У следующего оборудования подходит срок эксплуатации:</strong>
+            <strong>У следующего оборудования подходит к концу срок эксплуатации:</strong>
             <ul th:each="equipment : ${comesToTheEndList}">
                 <li th:text="${equipment}"></li>
             </ul>

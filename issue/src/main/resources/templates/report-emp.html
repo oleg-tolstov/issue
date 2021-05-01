@@ -18,10 +18,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="el : ${report}">
-            <td th:text="${el.name}"></td>
-            <td th:text="${el.tel}"></td>
-            <td th:text="${el.mail}"></td>
+
+        <tr th:each="issue : ${issuesByEmployee} ">
+            <td th:text="${issue.name_emp}"></td>
+            <td th:text="${issue.serial_number}"></td>
+            <td th:text="${issue.date}"></td>
         </tr>
         </tbody>
     </table>

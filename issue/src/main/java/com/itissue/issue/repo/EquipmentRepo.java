@@ -27,4 +27,5 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
             nativeQuery = true
     )
     List<Equipment> findAllNotIssued();
+
 }

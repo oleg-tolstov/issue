@@ -4,23 +4,20 @@
     <title>Выдача оборудования</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5 mb-5">
-    <h1>Отчеты</h1>
-    <form action="/reports" method="post">
+    <form action="/reports" method="post" th:object="${employee}">
         <h2>Отчет по сотруднику</h2>
         <select class="form-control" name="employeeId" id="employeeId">
             <option disabled selected value="1">Выберите сотрудника</option>
-            <option th:each="employee : ${empIds}" th:value="${employee.getId()}" th:text="${employee.getName()}"></option>
+            <option th:each="employee : ${empIds}" th:value="${employee.getId()}" th:text="${employee.getName()}" ></option>
         </select><br>
-        <button type="submit" class="btn btn-success">Выдать отчет</button>
-        <h2>Отчет по оборудованию</h2>
-        <select class="form-control" name="equipmentId" id="equipmentId">
-            <option disabled selected value="1">Выберите оборудование</option>
-            <option th:each="equipment : ${equIds}" th:value="${equipment.getId()}" th:text="${equipment.getName()}"></option>
-        </select><br>
+
+        <a th:each="employee : ${empIds}" th:href="'/reports/' + ${employee.getId()} + '/emp'"  >Выдать </a>
+
         <button type="submit" class="btn btn-success">Выдать отчет</button>
     </form>
 </div>
