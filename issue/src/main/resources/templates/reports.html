@@ -9,14 +9,12 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5 mb-5">
-    <form action="/reports" method="post" th:object="${employee}">
-        <h2>Отчет по сотруднику</h2>
-        <select class="form-control" name="employeeId" id="employeeId">
+    <form th:action="@{/reports}" method="post" th:object="${employee}">
+        <h1>Выберите сотрудника для составления отчета</h1>
+        <select class="form-control" th:field="*{id}">
             <option disabled selected value="1">Выберите сотрудника</option>
-            <option th:each="employee : ${empIds}" th:value="${employee.getId()}" th:text="${employee.getName()}" ></option>
+            <option th:each="dropDownItem : ${empIds}" th:value="${dropDownItem.getId()}" th:text="${dropDownItem.getName()}" id="employee"></option>
         </select><br>
-
-        <a th:each="employee : ${empIds}" th:href="'/reports/' + ${employee.getId()} + '/emp'"  >Выдать </a>
 
         <button type="submit" class="btn btn-success">Выдать отчет</button>
     </form>

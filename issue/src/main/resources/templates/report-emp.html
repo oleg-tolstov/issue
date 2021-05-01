@@ -2,26 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Выдача оборудования</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5">
-    <h1>Сотрудники</h1>
+    <h1>
+        <span>Отчет по сотруднику </span>
+        <span th:text="${employeeName}"></span>
+    </h1>
     <table class="table" style="width: 100%; table-layout: fixed;">
         <thead>
         <tr>
             <th>Наименование</th>
-            <th>Серийный номер </th>
+            <th>Серийный номер</th>
             <th>Дата выдачи</th>
         </tr>
         </thead>
         <tbody>
 
         <tr th:each="issue : ${issuesByEmployee} ">
-            <td th:text="${issue.name_emp}"></td>
-            <td th:text="${issue.serial_number}"></td>
+            <td th:text="${issue.getEquipment().getName()}"></td>
+            <td th:text="${issue.getEquipment().getSerial_number()}"></td>
             <td th:text="${issue.date}"></td>
         </tr>
         </tbody>

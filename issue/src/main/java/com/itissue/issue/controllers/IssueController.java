@@ -64,7 +64,7 @@ public class IssueController {
 
 	@PostMapping("/issue/{id}/remove")
 	public String issuePostDelete(@PathVariable(value = "id") long id, Model model) throws Exception {
-		Issue equipment = issueRepo.findById(id).orElseThrow(() -> new Exception());
+		Issue equipment = issueRepo.findById(id).orElseThrow(Exception::new);
 		issueRepo.delete(equipment);
 		return "redirect:/issue";
 	}
